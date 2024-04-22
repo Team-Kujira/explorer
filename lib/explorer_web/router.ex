@@ -18,6 +18,7 @@ defmodule ExplorerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/blocks", BlocksLive
   end
 
   # Other scopes may use custom stacks.

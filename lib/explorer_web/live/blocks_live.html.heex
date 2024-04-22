@@ -1,0 +1,14 @@
+<table>
+    <tr>
+        <td>Height</td>
+        <td>Last Commit Hash</td>
+        <td>Num Txs</td>
+    </tr>
+    <%= for block <- @blocks do %>
+        <tr>
+            <td><%= block.header.height %></td>
+            <td><%= Base.encode16(block.header.last_commit_hash) %></td>
+            <td><%= Enum.count(block.data.txs) %></td>
+        </tr>
+    <% end %>
+</table>
