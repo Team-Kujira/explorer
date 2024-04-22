@@ -15,9 +15,10 @@ defmodule Explorer.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Explorer.PubSub},
       # Start the Endpoint (http/https)
-      ExplorerWeb.Endpoint
+      ExplorerWeb.Endpoint,
       # Start a worker by calling: Explorer.Worker.start_link(arg)
       # {Explorer.Worker, arg}
+      Explorer.Node
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
