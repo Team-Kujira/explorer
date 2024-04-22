@@ -1,4 +1,10 @@
 <small><%= @hash %></small>
+<h2>Transaction</h2>
 <pre>
     <%= inspect(@tx, pretty: true) %>
+</pre>
+
+<h2>Transaction Response</h2>
+<pre>
+    <%= inspect(@tx_response, pretty: true) %>
 </pre>
