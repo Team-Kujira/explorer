@@ -7,16 +7,7 @@ defmodule ExplorerWeb.TxsLive do
   def mount(_params, _session, socket) do
     Explorer.Node.subscribe("tendermint/event/NewBlock")
 
-    # req =
-    #   GetTxs.new(events: ["tx.height > 0"], order_by: OrderBy.value(:ORDER_BY_DESC), limit: 25)
 
-    # IO.inspect(req)
-
-    # {:ok, %{txs: txs}} =
-    #   get_txs_event(
-    #     Explorer.Node.channel(),
-    #     req
-    #   )
 
     # IO.inspect(txs)
     {:ok, assign(socket, :txs, [])}

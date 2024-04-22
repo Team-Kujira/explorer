@@ -1,0 +1,4 @@
+<small><%= @hash %></small>
+<pre>
+    <%= inspect(@tx) %>
+</pre>
