@@ -7,11 +7,8 @@ defmodule ExplorerWeb.BlocksLive do
 
   def mount(_params, _session, socket) do
     Explorer.Node.subscribe("tendermint/event/NewBlock")
-    {:ok, %{block: block}} = get_latest_block(Explorer.Node.channel(), LatestBlock.new())
-
     blocks = get_blocks()
-
-    {:ok, assign(socket, :block, block) |> assign(:blocks, blocks)}
+    {:ok, assign(socket, :blocks, blocks)}
   end
 
   def handle_info(%{block: %{header: %{height: height}}}, socket) do

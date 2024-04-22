@@ -23,6 +23,7 @@ defmodule ExplorerWeb do
 
       import Plug.Conn
       import ExplorerWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias ExplorerWeb.Router.Helpers, as: Routes
     end
   end

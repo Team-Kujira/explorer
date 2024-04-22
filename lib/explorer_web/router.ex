@@ -19,6 +19,7 @@ defmodule ExplorerWeb.Router do
 
     get "/", PageController, :index
     live "/blocks", BlocksLive
+    live "/txs", TxsLive
   end
 
   # Other scopes may use custom stacks.
