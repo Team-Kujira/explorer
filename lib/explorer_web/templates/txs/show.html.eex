@@ -1,4 +1,4 @@
 <small><%= @hash %></small>
 <pre>
-    <%= inspect(@tx) %>
+    <%= inspect(@tx, pretty: true) %>
 </pre>
