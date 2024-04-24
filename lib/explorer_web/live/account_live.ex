@@ -14,10 +14,19 @@ defmodule ExplorerWeb.AccountLive do
 
     case get_txs_event(
            Explorer.Node.channel(),
-           GetTxs.new(query: "message.sender='#{address}'") |> IO.inspect()
+           GetTxs.new(
+             query: "message.sender='#{address}'",
+             order_by: OrderBy.value(:ORDER_BY_DESC)
+           )
          ) do
-      {:ok, %{txs: txs}} ->
-        {:ok, assign(socket, :txs, txs) |> assign(:address, address) |> assign(:account, account)}
+      {:ok, %{txs: txs, tx_responses: tx_responses}} ->
+        IO.inspect(tx_responses)
+
+        {:ok,
+         assign(socket, :txs, txs)
+         |> assign(:address, address)
+         |> assign(:account, account)
+         |> assign(:tx_responses, tx_responses)}
 
       {:error, %GRPC.RPCError{message: message}} ->
         {:ok,
@@ -25,7 +34,8 @@ defmodule ExplorerWeb.AccountLive do
          |> put_flash(:error, message)
          |> assign(:address, address)
          |> assign(:account, account)
-         |> assign(:txs, [])}
+         |> assign(:txs, [])
+         |> assign(:tx_responses, [])}
     end
   end
 

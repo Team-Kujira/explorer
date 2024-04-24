@@ -2,9 +2,44 @@
     <%= inspect(@account, pretty: true) %>
 </pre>
 
-<%= for tx <- @txs do %>
-    <%= link Explorer.tx_hash(tx), to: Routes.txs_path(@socket, :show, Explorer.tx_hash(tx)) %>
-    <pre>
-        <%= inspect(tx, pretty: true, limit: :infinity) %>
-    </pre>
-<% end %>
+<div class="md-row pad-tight wrap">
+    <div class="col-12 mt-2">
+        <div class="box p-3">
+            <h2 class="mb-2">Transactions</h2>
+            <table class="md-table md-table--lined condensed transactions">
+                <thead>
+                    <tr>
+                        <th class="w-2">Tx Hash</th>
+                        <th>Type</th>
+                        <th>Block</th>
+                        <th>Timestamp</th>
+                        <th>Fee</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= for tx <- @txs do %>
+                        <% response = Enum.find(@tx_responses, & &1.txhash == Explorer.tx_hash(tx)) %>
+                        <tr class="tx-row">
+                            <td>                        
+                                <%= link "#{String.slice(Explorer.tx_hash(tx), 0, 10)}...", to: Routes.txs_path(@socket, :show, Explorer.tx_hash(tx)) %>
+                            </td>
+                            <td>
+                                <span class="tag"><%= ExplorerWeb.TxsView.message_tag(tx) %></span>
+                            </td>
+                            <td>
+                                <%= response.height %>
+                            </td>
+                            <td>
+                                <%= response.timestamp %>
+                            </td>
+                            <td>
+                                <%= tx.auth_info.fee.amount %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
