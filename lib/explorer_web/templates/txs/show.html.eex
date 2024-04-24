@@ -1,5 +1,13 @@
 <small><%= @hash %></small>
 <h2>Transaction</h2>
+
+<dl>
+    <dt>Block</dt>
+    <dd>
+        <%= link @tx_response.height, to: Routes.blocks_path(@conn, :show, @tx_response.height) %>
+    </dd>
+</dl>
+
 <pre>
     <%= inspect(@tx, pretty: true) %>
 </pre>
