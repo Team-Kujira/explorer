@@ -23,6 +23,8 @@ defmodule ExplorerWeb.Router do
 
     get "/txs/:hash", TxsController, :show
     live "/txs", TxsLive
+
+    live "/accounts/:address", AccountLive
   end
 
   # Other scopes may use custom stacks.

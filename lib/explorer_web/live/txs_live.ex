@@ -6,9 +6,6 @@ defmodule ExplorerWeb.TxsLive do
 
   def mount(_params, _session, socket) do
     Explorer.Node.subscribe("tendermint/event/NewBlock")
-
-
-
     # IO.inspect(txs)
     {:ok, assign(socket, :txs, [])}
   end

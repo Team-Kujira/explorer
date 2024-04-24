@@ -6,7 +6,9 @@ defmodule ExplorerWeb.BlocksView do
       json
     else
       {:error, _} ->
-        %Cosmos.Tx.V1beta1.Tx{body: %{messages: messages} = body} = tx = Cosmos.Tx.V1beta1.Tx.decode(tx)
+        %Cosmos.Tx.V1beta1.Tx{body: %{messages: messages} = body} =
+          tx = Cosmos.Tx.V1beta1.Tx.decode(tx)
+
         %{tx | body: %{body | messages: Enum.map(messages, &Explorer.decode_any/1)}}
     end
   end

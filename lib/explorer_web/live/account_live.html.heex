@@ -1,0 +1,14 @@
+<pre>
+    <%= inspect(@account, pretty: true) %>
+</pre>
+
+<table>
+    <tr>
+        <td>Hash</td>
+    </tr>
+    <%= for tx <- @txs do %>
+        <tr>
+            <td><%= Base.decode64!(tx) %></td>
+        </tr>
+    <% end %>
+</table>
