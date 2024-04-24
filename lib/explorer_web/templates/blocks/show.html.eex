@@ -3,6 +3,9 @@
     <%= inspect(@block, pretty: true, limit: :infinity) %>
 </pre>
 
-<pre>
-    <%= inspect(Enum.map(@block.data.txs, &decode_tx/1), pretty: true, limit: :infinity) %>
-</pre>
+<%= for tx <- @block.data.txs do %>
+    <%= link Explorer.tx_hash(tx), to: Routes.txs_path(@conn, :show, Explorer.tx_hash(tx)) %>
+    <pre>
+        <%= inspect(decode_tx(tx), pretty: true, limit: :infinity) %>
+    </pre>
+<% end %>

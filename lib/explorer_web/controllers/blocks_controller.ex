@@ -9,7 +9,7 @@ defmodule ExplorerWeb.BlocksController do
 
   def show(conn, %{"height" => height}) do
     with {height, ""} <- Integer.parse(height),
-         {:ok, %{sdk_block: %Block{} = block}} <- get_block_by_height(Explorer.Node.channel(), GetBlock.new(height: height)) do
+         {:ok, %{block: block}} <- get_block_by_height(Explorer.Node.channel(), GetBlock.new(height: height)) do
       conn = conn |> assign(:block, block)
       render(conn, "show.html")
     end

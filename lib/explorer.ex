@@ -29,4 +29,7 @@ defmodule Explorer do
       do: String.upcase(<<c>>) <> rest
   end
 
+  def tx_hash(bytes) do
+    Base.encode16(:crypto.hash(:sha256, bytes))
+  end
 end
