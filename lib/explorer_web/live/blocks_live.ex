@@ -18,12 +18,12 @@ defmodule ExplorerWeb.BlocksLive do
         Block.new(height: String.to_integer(height))
       )
 
-    {:noreply, assign(socket, :blocks, [block | socket.assigns.blocks])}
+    {:noreply, assign(socket, :blocks, Enum.take([block | socket.assigns.blocks], 20))}
   end
 
   def get_blocks() do
     with {:ok, %{block: block}} <- get_latest_block(Explorer.Node.channel(), LatestBlock.new()) do
-      Range.new(1, 21)
+      Range.new(1, 19)
       |> Enum.map(&(block.header.height - &1))
       |> Task.async_stream(&get_block_by_height(Explorer.Node.channel(), Block.new(height: &1)))
       |> Enum.reduce([block], fn

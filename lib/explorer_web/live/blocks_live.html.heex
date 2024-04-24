@@ -1,14 +1,25 @@
-<table>
-    <tr>
-        <td>Height</td>
-        <td>Last Commit Hash</td>
-        <td>Num Txs</td>
-    </tr>
-    <%= for block <- @blocks do %>
-        <tr>
-            <td><%= link block.header.height, to: Routes.blocks_path(@socket, :show, block.header.height) %></td>
-            <td><%= Base.encode16(block.header.last_commit_hash) %></td>
-            <td><%= Enum.count(block.data.txs) %></td>
-        </tr>
-    <% end %>
-</table>
+<div class="md-row pad-tight wrap">
+    <div class="col-12 mt-2">
+        <div class="box p-3">
+            <h2 class="mb-2">Blocks</h2>
+            <table class="md-table md-table--lined condensed transactions">
+                <thead>
+                    <tr>
+                        <th>Height</th>
+                        <th>Last Commit Hash</th>
+                        <th>Num Txs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%= for block <- @blocks do %>
+                        <tr class="tx-row">
+                            <td><%= link block.header.height, to: Routes.blocks_path(@socket, :show, block.header.height) %></td>
+                            <td><%= Base.encode16(block.header.last_commit_hash) %></td>
+                            <td><%= Enum.count(block.data.txs) %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
