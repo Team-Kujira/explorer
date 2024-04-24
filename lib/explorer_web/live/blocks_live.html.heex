@@ -6,7 +6,7 @@
     </tr>
     <%= for block <- @blocks do %>
         <tr>
-            <td><%= block.header.height %></td>
+            <td><%= link block.header.height, to: Routes.blocks_path(@socket, :show, block.header.height) %></td>
             <td><%= Base.encode16(block.header.last_commit_hash) %></td>
             <td><%= Enum.count(block.data.txs) %></td>
         </tr>

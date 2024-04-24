@@ -19,6 +19,8 @@ defmodule ExplorerWeb.Router do
 
     get "/", PageController, :index
     live "/blocks", BlocksLive
+    get "/blocks/:height", BlocksController, :show
+
     get "/txs/:hash", TxsController, :show
     live "/txs", TxsLive
   end

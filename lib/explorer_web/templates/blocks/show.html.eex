@@ -1,0 +1,4 @@
+<small><%= @block.header.height %></small>
+<pre>
+    <%= inspect(@block, pretty: true) %>
+</pre>

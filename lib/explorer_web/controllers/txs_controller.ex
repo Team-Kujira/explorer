@@ -12,7 +12,7 @@ defmodule ExplorerWeb.TxsController do
 
   def show(conn, %{"hash" => hash}) do
     with {:ok, %{tx: tx, tx_response: tx_response}} <- get_tx(Explorer.Node.channel(), GetTx.new(hash: hash)) do
-      conn = conn |> assign( :tx, tx) |> assign(:hash, hash) |> assign(:tx_response, tx_response)
+      conn = conn |> assign(:tx, tx) |> assign(:hash, hash) |> assign(:tx_response, tx_response)
       render(conn, "show.html")
     end
   end

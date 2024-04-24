@@ -4,6 +4,12 @@
     <%= inspect(@tx, pretty: true) %>
 </pre>
 
+<h2>Messages</h2>
+<pre>
+    <%= inspect(Enum.map(@tx.body.messages, &decode/1), pretty: true) %>
+</pre>
+
+
 <h2>Transaction Response</h2>
 <pre>
     <%= inspect(@tx_response, pretty: true) %>
