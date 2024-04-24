@@ -30,7 +30,23 @@ defmodule Explorer do
          do: String.upcase(<<c>>) <> rest
   end
 
+  def tx_hash(%Cosmos.Tx.V1beta1.Tx{} = tx) do
+    tx_hash(Cosmos.Tx.V1beta1.Tx.encode(tx))
+  end
+
   def tx_hash(bytes) do
     Base.encode16(:crypto.hash(:sha256, bytes))
+  end
+
+  def decode_tx(tx) do
+    with {:ok, json} <- Jason.decode(tx) do
+      json
+    else
+      {:error, _} ->
+        %Cosmos.Tx.V1beta1.Tx{body: %{messages: messages} = body} =
+          tx = Cosmos.Tx.V1beta1.Tx.decode(tx)
+
+        %{tx | body: %{body | messages: Enum.map(messages, &Explorer.decode_any/1)}}
+    end
   end
 end

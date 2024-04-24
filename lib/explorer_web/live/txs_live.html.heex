@@ -1,10 +1,6 @@
-<table>
-    <tr>
-        <td>Hash</td>
-    </tr>
-    <%= for tx <- @txs do %>
-        <tr>
-            <td><%= Base.decode64!(tx) %></td>
-        </tr>
-    <% end %>
-</table>
+<%= for tx <- @txs do %>
+    <%= link Explorer.tx_hash(tx), to: Routes.txs_path(@socket, :show, Explorer.tx_hash(tx)) %>
+    <pre>
+        <%= inspect(tx, pretty: true, limit: :infinity) %>
+    </pre>
+<% end %>

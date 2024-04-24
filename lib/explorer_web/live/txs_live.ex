@@ -6,11 +6,24 @@ defmodule ExplorerWeb.TxsLive do
 
   def mount(_params, _session, socket) do
     Explorer.Node.subscribe("tendermint/event/NewBlock")
-    # IO.inspect(txs)
-    {:ok, assign(socket, :txs, [])}
+
+    case get_txs_event(
+           Explorer.Node.channel(),
+           GetTxs.new(query: "message.sender EXISTS", order_by: OrderBy.value(:ORDER_BY_DESC))
+         ) do
+      {:ok, %{txs: txs}} ->
+        {:ok, assign(socket, :txs, txs)}
+
+      {:error, %GRPC.RPCError{message: message}} ->
+        {:ok,
+         socket
+         |> put_flash(:error, message)
+         |> assign(:txs, [])}
+    end
   end
 
   def handle_info(%{block: %{data: %{txs: txs}} = x}, socket) do
+    # TODO Decode tx and filter Vote Extensions
     {:noreply, assign(socket, :txs, Enum.concat(txs, socket.assigns.txs))}
   end
 end

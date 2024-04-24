@@ -14,7 +14,7 @@ defmodule ExplorerWeb.AccountLive do
 
     case get_txs_event(
            Explorer.Node.channel(),
-           GetTxs.new(events: ["message.sender='#{address}'"])
+           GetTxs.new(query: "message.sender='#{address}'") |> IO.inspect()
          ) do
       {:ok, %{txs: txs}} ->
         {:ok, assign(socket, :txs, txs) |> assign(:address, address) |> assign(:account, account)}
