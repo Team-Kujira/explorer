@@ -6,7 +6,7 @@
 
 <h2>Messages</h2>
 <pre>
-    <%= inspect(Enum.map(@tx.body.messages, &decode/1), pretty: true) %>
+    <%= inspect(Enum.map(@tx.body.messages, &Explorer.decode_any/1), pretty: true) %>
 </pre>
 
 

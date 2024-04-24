@@ -1,4 +1,8 @@
 <small><%= @block.header.height %></small>
 <pre>
-    <%= inspect(@block, pretty: true) %>
+    <%= inspect(@block, pretty: true, limit: :infinity) %>
+</pre>
+
+<pre>
+    <%= inspect(Enum.map(@block.data.txs, &decode_tx/1), pretty: true, limit: :infinity) %>
 </pre>
